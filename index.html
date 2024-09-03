@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>擲硬幣人頭機率計算</title>
+    <title>Club Match 真實機率計算</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100 flex items-center justify-center min-h-screen">
     <div class="bg-white shadow-md rounded-lg p-8 max-w-md w-full">
-        <h1 class="text-2xl font-bold text-center mb-6">擲硬幣人頭機率計算</h1>
-        <p class="text-gray-700 text-center mb-4">請輸入「獲勝次數與總擲硬幣次數的比率」（0 到 100 之間的百分比），然後點擊下方按鈕以計算人頭出現的機率。</p>
+        <h1 class="text-2xl font-bold text-center mb-6">Club Match 真實機率計算</h1>
+        <p class="text-gray-700 text-center mb-4">請輸入「遊戲顯示的勝率」（0 到 100 之間的百分比），然後點擊下方按鈕以計算 Club Match 真實機率。</p>
         <div class="flex items-center justify-center mb-6">
             <input type="number" id="winToFlipRatio" step="0.1" min="0" max="100" class="border rounded-lg px-4 py-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="輸入百分比"> 
             <span class="ml-2 text-gray-700">%</span>
@@ -63,7 +63,7 @@
                 iteration++;
             }
 
-            document.getElementById("result").innerText = `計算得出的人頭出現機率約為：${(headProbability * 100).toFixed(2)}%`;
+            document.getElementById("result").innerText = `計算 Club Match 真實機率為：${(headProbability * 100).toFixed(2)}%`;
         }
     </script>
 </body>
