@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>擲硬幣人頭機率計算</title>
+</head>
+<body>
+    <h1>擲硬幣人頭機率計算</h1>
+    <p>請輸入「獲勝次數與總擲硬幣次數的比率」（0 到 100 之間的百分比），然後點擊下方按鈕以計算人頭出現的機率。</p>
+    <input type="number" id="winToFlipRatio" step="0.1" min="0" max="100" value="95.4"> %
+    <button onclick="calculateProbability()">計算人頭機率</button>
+    <p id="result"></p>
+
+    <script>
+        function calculateProbability() {
+            const trials = 10000;  // 增加模擬次數來提高精確度
+            const targetRatio = parseFloat(document.getElementById("winToFlipRatio").value) / 100;
+            let headProbability = 0.5;  // 初始估計值
+            let epsilon = 0.0001;  // 精確度
+            let maxIterations = 1000;  // 最大迭代次數
+            let iteration = 0;
+
+            function simulate(headProbability) {
+                let totalFlips = 0;
+                let totalWins = 0;
+
+                for (let i = 0; i < trials; i++) {
+                    let firstFlip = Math.random() < headProbability ? 'heads' : 'tails';
+                    totalFlips++;
+
+                    if (firstFlip === 'heads') {
+                        totalWins++;
+                        while (Math.random() < headProbability) {
+                            totalFlips++;
+                            totalWins++;
+                        }
+                    }
+                }
+
+                return totalWins / totalFlips;
+            }
+
+            while (iteration < maxIterations) {
+                let simulatedRatio = simulate(headProbability);
+
+                if (Math.abs(simulatedRatio - targetRatio) < epsilon) {
+                    break;
+                } else if (simulatedRatio < targetRatio) {
+                    headProbability += 0.01;
+                } else {
+                    headProbability -= 0.01;
+                }
+
+                iteration++;
+            }
+
+            document.getElementById("result").innerText = `計算得出的人頭出現機率約為：${(headProbability * 100).toFixed(2)}%`;
+        }
+    </script>
+</body>
+</html>
